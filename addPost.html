@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body onload="scroll()" id="container1">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="phonestyle.css" media="screen and (max-width: 768px)">
+    <link rel="shortcut icon" href="resources/images/Kenji logo transparent outer.png" type="image/x-icon">
+    <script src="index.js"></script>
+    <title>Upload to blog</title>
+</head>
+
+<header id="header">
+        <div id="titlelogo" onclick="changeX(this);">
+            <div id="responsive-menu">
+                <div class="resp-menu-icon1"></div>
+                <div class="resp-menu-icon2"></div>
+                <div class="resp-menu-icon3"></div>
+            </div>
+            <div id="logo-header">
+                <a href="#start" id="logoimgheaderlink"><img src="resources/images/Kenji logo transparent.png" id="logoimgheader"></a>
+                <h1 id="logoname">Kenji Berry</h1>
+            </div>
+            <div id="header-spacer"></div>
+            </div>
+        </div>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a href="index.html#about-me" class="animate">About me</a></li>
+                <li><a href="index.html#education" class="animate">Education</a></li>
+                <li><a href="index.html#experience" class="animate">Experience</a></li>
+                <li><a href="index.html#skills" class="animate">Skills</a></li>
+                <li><a href="index.html#projects" class="animate">Projects</a></li>
+                <li><a href="viewBlog.php" class="animate">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <form id="addBlogForm" method="POST" action="addPost.php" onsubmit="preventEmptyBlog(event)">
+        <div id="log-in-top-close">
+            <h2 class="mont" id="add-post-text">ADD POST</h2>
+        </div>
+        <div id="blog-name-div">
+            <input type="text" name="blog-name" placeholder="Title" class="split" id="blog-name">
+        </div>
+        <div id="blog-text-div" class="form-element">
+            <textarea type="text" name="blog-text" placeholder="Enter text here" class="split" id="blog-text"></textarea>
+        </div>
+        <div id="signinbutton">
+            <button type="submit" name="blog-submit-btn">Post</button>
+            <button id="blog-clear" onclick="clearBlog();" type="button">Clear</button>
+        </div>
+    </form>
+
+        <footer id="footer1" class="animatelong mont">
+        <h2>© Kenji Berry 2023</h2>
+        <div id="contact">
+            <p id="footer-email">Email: kenji.k.berry@gmail.com</p>
+            <a href="https://www.linkedin.com/in/kenji-berry-5783a8252/" target="_blank"><img src="resources/images/linkedinicon.png" id="footer-linkedin"></a>
+            <a href="https://github.com/kenji-berry" target="_blank"><img src="resources/images/github.png" id="footer-github"></a>
+        </div>
+    </footer>
+</body>
+
+</html>

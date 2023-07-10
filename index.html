@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="phonestyle.css" media="screen and (max-width: 768px)">
+    <link rel="shortcut icon" href="resources/images/Kenji logo transparent outer.png" type="image/x-icon">
+    <script src="index.js"></script>
+    <title>Home</title>
+</head>
+
+<body onload="scroll(); appear(); startfadein();" id="container1">
+
+    <header id="header">
+        <div id="titlelogo" onclick="changeX(this);">
+            <div id="responsive-menu">
+                <div class="resp-menu-icon1"></div>
+                <div class="resp-menu-icon2"></div>
+                <div class="resp-menu-icon3"></div>
+            </div>
+            <div id="logo-header">
+                <a href="#start" id="logoimgheaderlink"><img src="resources/images/Kenji logo transparent.png" id="logoimgheader"></a>
+                <h1 id="logoname">Kenji Berry</h1>
+            </div>
+            <div id="header-spacer"></div>
+            </div>
+        </div>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a href="index.html#about-me" class="animate">About me</a></li>
+                <li><a href="index.html#education" class="animate">Education</a></li>
+                <li><a href="index.html#skills" class="animate">Skills</a></li>
+                <li><a href="viewBlog.php" class="animate">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="start">
+        <div id="info" class="sans">
+            <h2>Hi, I'm Kenji</h2>
+            <h2>Welcome to my <a href="viewBlog.php" id="mainblog" class="animatelong">Blog</a></h2>
+        </div>
+
+        <div id="icons" class="animatelong">
+            <a href="https://www.linkedin.com/in/kenji-berry-5783a8252/" target="_blank" class="animatelong"><img src="resources/images/linkedinicon-white.png" id="linkedinicon"></a>
+            <a href="https://github.com/kenji-berry" target="_blank" class="animatelong"><img src="resources/images/github-white.png" id="githubicon"></a>
+        </div>
+        <div id="scroll-box">
+
+            <div class="indicator">
+                <span class="animatelong"></span>
+            </div>
+            <h2 id="scroll-down" class="mont">Scroll Down</h2>
+        </div>
+
+    </section>
+    
+    <section id="about-me" class="sans animatelong hidden">
+        <figure id="about-me-picture-outer">
+            <img src="resources/images/self-image" id="about-me-picture">
+        </figure>
+
+        <div id="about-me-text" >
+            <hgroup id="about-me-title">
+                <h2 class="sectiontitle">ABOUT ME</h2>
+                <h3>Computer Science undergraduate student studying at Queen Mary University of London.</h3>
+            </hgroup>
+
+            <p id ="aboutme-realtext"class="sans">I am a computer science student looking to develop my skills and learn more about real world applications. My goal is to become a software developer and build innovative projects. I'm constantly pushing my boundaries and seeking to learn more about the industry. I'm motivated and excited to explore the possibilities that can arise from the skills I develop through my studies.</p>
+        </div>
+    </section>
+
+    <section id="education" class="sans animatelong section hidden">
+        <h2 class="sectiontitle" id="education-main-title">Education</h2>
+        <div id="education-history">
+            <p class="education-title">Mill Hill County High School,</p>
+            <p>GCSE's (2015 - 2020)</p>
+            <p>A Level's (2020 - 2022)</p>
+            <p class="education-title">Queen Mary University Of London,</p>
+            <p>Computer Science (BSc) (2022 - Present)</p>
+        </div>
+    </section>
+
+    <section id="skills" class="animatelong sans section hidden">
+        <h2 class="sectiontitle">Skills</h2>
+        <div id="div-skills-table">
+            <table id="skills-table">
+                <colgroup>
+                    <col class="categories">       
+                    <col class="tech"> 
+                </colgroup>
+        
+                <tr>
+                    <th class="skills-table-title" id="table-curve-top-left">Languages</th>
+                    <td id="table-curve-top-right">JavaScript, HTML/CSS, Python, Java</td>
+                </tr>
+                <tr>
+                    <th class="skills-table-title">Frameworks</th>
+                    <td>React, Bootstrap</td>
+                </tr>
+                <tr>
+                    <th class="skills-table-title" id="table-curve-bottom-left">Libraries and technologies</th>
+                    <td id="table-curve-bottom-right">Git, VS Code, Figma, Jupyter Notebook</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+   
+    <footer id="footer" class="animatelong mont">
+        <h2>© Kenji Berry 2023</h2>
+        <div id="contact">
+            <p id="footer-email">Email: kenji.k.berry@gmail.com</p>
+            <a href="https://www.linkedin.com/in/kenji-berry-5783a8252/" target="_blank"><img src="resources/images/linkedinicon.png" id="footer-linkedin"></a>
+            <a href="https://github.com/kenji-berry" target="_blank"><img src="resources/images/github.png" id="footer-github"></a>
+        </div>
+    </footer>
+  
+</body>
+
+</html>

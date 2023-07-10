@@ -1,0 +1,174 @@
+#menuimg{
+    display:initial;
+}
+
+nav{
+    display: none;
+    transition-duration: 10s;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    transition-duration: 0.6s;
+    min-width: 99.2%;
+}
+
+#responsive-menu{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.section{
+    margin-left: 1%;
+    margin-right: 3%;
+}
+
+#info{
+    font-size: 5vw;
+}
+
+#projects-show{
+    display: flex;
+    width: auto;
+    height: auto;
+    flex-direction: column;
+}
+
+#project-example{
+    margin-bottom: 3%;
+}
+
+#responsive-menu{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+#logo-header{
+    display: flex;
+    justify-content: center;
+}
+
+#header-spacer{
+    width:45px;
+}
+
+#titlelogo{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu-button{
+    position: absolute;
+    background-color: antiquewhite;
+    z-index: 3;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#menu-button-icon{
+    width:50%;
+    height:10%;
+    border-radius: 25%;
+    background-color: orange;
+}
+
+nav ul{
+    display: grid;
+    grid-template-areas: "aboutme-nav"
+    "education-nav"
+    "experience-nav"
+    "skills-nav"
+    "projects-nav"
+    "blog-nav"
+    "changecolor-nav";
+}
+
+nav ul{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#aboutme-nav{
+    grid-area: aboutme-nav;
+}
+#education-nav{
+    grid-area: education-nav;
+}
+#experience-nav{
+    grid-area: experience-nav;
+}
+#skills-nav{
+    grid-area: skills-nav;
+}
+#projects-nav{
+    grid-area: projects-nav;
+}
+#blog-nav{
+    grid-area: blog-nav;
+}
+#changecolor-nav{
+    grid-area: changecolor-nav;
+}
+
+#menu-logo{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#come-out-menu{
+    display: none;
+}
+
+#come-out-menu-icon{
+    width:3.5rem;
+    height: 3.5rem;
+}
+
+#menu-logo-press{
+    display: block;
+    position: absolute;
+    margin-top:0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+#about-me{
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+}
+
+#experience-examples{
+    flex-direction: column;
+}
+
+#login-register{
+    flex-direction: column;
+}
+
+#login-register-split{
+    height: 5px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #EFEFEF;
+}
+
+#blog-name, #blog-text{
+    width:250px;
+}
