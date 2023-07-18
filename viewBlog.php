@@ -112,361 +112,93 @@ function classifyMonth($month, $datas)
     return $month_array;
 }
 
-//if a month rewrite page
-if (isset($_POST['change-months-reset'])) {
-    if ($_POST['change-months'] == "Jan") {
-        $month_array = classifyMonth("01", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "Feb") {
-        $month_array = classifyMonth("02", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "Mar") {
-        $month_array = classifyMonth("03", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "Apr") {
-        $month_array = classifyMonth("04", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "May") {
-        $month_array = classifyMonth("05", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "Jun") {
-        $month_array = classifyMonth("06", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "Jul") {
-        $month_array = classifyMonth("07", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "Aug") {
-        $month_array = classifyMonth("08", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "Sep") {
-        $month_array = classifyMonth("09", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "Oct") {
-        $month_array = classifyMonth("10", $datas);
-        printMonths($month_array, $conn);
-    } else if ($_POST['change-months'] == "Nov") {
-        $month_array = classifyMonth("11", $datas);
-    } else if ($_POST['change-months'] == "Dec") {
-        $month_array = classifyMonth("12", $datas);
-        printMonths($month_array, $conn);
-    } else {
-        $_SESSION["refresh-session"] = false;
-    }
-}
+
 //write page
-if (array_key_exists("refresh-session", $_SESSION)) {
-    if ($_SESSION["refresh-session"] == false) {
-        echo "<div id=whole-blog-og class=sans>";
-        if (array_key_exists("logged-in", $_SESSION)) {
-            echo "<div id=top-right-button2><a href=logout.php><p>LOG OUT</p></a></div>";
-            if (array_key_exists("email", $_SESSION)) {
-                if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
-                    echo "<div id=top-right-button><a href=addPost.html><p>ADD POST</p></a></div>";
-                }
-            }
-        } else {
-            echo "<div id=top-right-button><a href=login.php><p>LOG IN</p></a></div>";
+
+echo "<div id=whole-blog-og class=sans>";
+if (array_key_exists("logged-in", $_SESSION)) {
+    echo "<div id=top-right-button2><a href=logout.php><p>LOG OUT</p></a></div>";
+    if (array_key_exists("email", $_SESSION)) {
+        if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
+            echo "<div id=top-right-button><a href=addPost.html><p>ADD POST</p></a></div>";
         }
-        echo  "<div id=view-blog >";
-        echo "<div id=posts-months>";
-        echo "<h1>Posts:</h1>";
-        echo "<div>";
-        echo "<form method=POST>
-    <select placeholder=MM name='change-months'>
-    <option name= value= style=display:none;>MM</option>
-    <option name=January value=Jan>January</option>
-    <option name=February value=Feb>February</option>
-    <option name=March value=Mar>March</option>
-    <option name=April value=Apr>April</option>
-        <option name=May value=May>May</option>
-    <option name=June value=Jun>June</option>
-    <option name=July value=Jul>July</option>
-    <option name=August value=Aug>August</option>
-        <option name=September value=Sep>September</option>
-    <option name=October value=Oct>October</option>
-    <option name=November value=Nov>November</option>
-    <option name=December value=Dec>December</option>
-    </select>";
-        echo " <input type=submit name=change-months-reset onclick='test();'></form>";
-        echo "</div>";
-        echo "</div>";
-        for ($i = 0; $i < count($datas); $i += 1) {
-            $temptitle = $datas[$i]['BLOGTITLE'];
-            $temptext = $datas[$i]['BLOGTEXT'];
-            $temptime = $datas[$i]['dateTime'];
-            $usedId = $datas[$i]['ID'];
-            echo  "<div id=view-blog1>";
-            if (array_key_exists("email", $_SESSION)) {
-                if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
-                    echo "<form method=POST id=deleteform><button type=submit id=deletebutton name=deletebuttonpost>DELETE POST</button>";
-                    echo "<input type=hidden name=blog3 value=" . $datas[$i]["ID"] . "></form>";
-                }
-            }
-            echo "<div id=blog-info>";
-            echo "<div id=inside-view-blog>";
-            echo "<h2>" .  $temptitle . "</h2>";
-            echo "<h2>" . $temptime . "</h2>";
-            echo "</div>";
-            echo "<p>" .  $temptext . "</p>";
-            echo "</div>";
-            echo "<div id=blog-comment>";
-            echo "<h3 id=comments-seperate> Comments: </h3>";
-            if (array_key_exists("logged-in", $_SESSION)) {
-                echo "<form method=POST id=add-comment-box>";
-                echo "<textarea name=comment-box id=comment-box placeholder='Add a comment' required></textarea>";
-                echo "<input type=hidden name=blog-id value=" . $usedId . ">";
-                echo "<input type=hidden name=email value=" . $_SESSION["email"] . ">";
-                echo "<input type=submit name=blog-comment-submit id=blog-comment-submit>";
-                echo "</form>";
-            } else {
-                echo "<p>log in to comment<p>";
-            }
-
-            $commentquery = "SELECT `BLOGCOMMENT`, `dateTimeComment`,`COMMENTID` FROM `blogcomments` WHERE ID=" . $usedId . "";
-            $result2 = mysqli_query($conn, $commentquery);
-            $blogcom = array();
-            if (mysqli_num_rows($result2) > 0) {
-                while ($row1 = mysqli_fetch_assoc($result2)) {
-                    $blogcom[] = $row1;
-                }
-            }
-
-            $blogcom = array_reverse($blogcom);
-            for ($j = 0; $j < count($blogcom); $j++) {
-
-                if (array_key_exists("email", $_SESSION)) {
-                    if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
-                        echo "<form method=POST id=deleteform><button type=submit id=deletebutton name=deletebuttoncom>DELETE COMMENT</button>";
-                        echo "<input type=hidden name=comment-id2 value=" . $blogcom[$j]["COMMENTID"] . "></form>";
-                    }
-                }
-                echo "<div id=comment>";
-                echo "<div id=comment-content>";
-                echo "<p>" . $blogcom[$j]['EMAIL'] . "</p>";
-                echo "<p>" . $blogcom[$j]['dateTimeComment'] . "</p>";
-                echo "</div>";
-                echo "<p>" . $blogcom[$j]['BLOGCOMMENT'] . "</p>";
-                echo "</div>";
-            }
-
-            echo "</div>";
-            if ($i < count($datas) - 1) {
-                echo "<hr>";
-            }
-            echo "</div>";
-        }
-        echo "</div>";
-        echo "</div>";
     }
 } else {
-    echo "<div id=whole-blog-og class=sans>";
-    if (array_key_exists("logged-in", $_SESSION)) {
-        echo "<div id=top-right-button2><a href=logout.php><p>LOG OUT</p></a></div>";
-        if (array_key_exists("email", $_SESSION)) {
-            if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
-                echo "<div id=top-right-button><a href=addPost.html><p>ADD POST</p></a></div>";
-            }
-        }
-    } else {
-        echo "<div id=top-right-button><a href=login.php><p>LOG IN</p></a></div>";
-    }
-
-    echo  "<div id=view-blog >";
-    echo "<div id=posts-months>";
-    echo "<h1>Posts:</h1>";
-    echo "<div>";
-    echo "<form method=POST>
-        <select placeholder=MM name='change-months'>
-        <option name= value= style=display:none;>MM</option>
-        <option name=January value=Jan>January</option>
-        <option name=February value=Feb>February</option>
-        <option name=March value=Mar>March</option>
-        <option name=April value=Apr>April</option>
-            <option name=May value=May>May</option>
-        <option name=June value=Jun>June</option>
-        <option name=July value=Jul>July</option>
-        <option name=August value=Aug>August</option>
-            <option name=September value=Sep>September</option>
-        <option name=October value=Oct>October</option>
-        <option name=November value=Nov>November</option>
-        <option name=December value=Dec>December</option>
-        </select>";
-    echo "<input type=submit name=change-months-reset onclick='test();'></form>";
-    echo "</div>";
-    echo "</div>";
-    for ($i = 0; $i < count($datas); $i += 1) {
-        $temptitle = $datas[$i]['BLOGTITLE'];
-        $temptext = $datas[$i]['BLOGTEXT'];
-        $temptime = $datas[$i]['dateTime'];
-        $usedId = $datas[$i]['ID'];
-        echo  "<div id=view-blog1>";
-        if (array_key_exists("email", $_SESSION)) {
-            if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
-                echo "<form method=POST id=deleteform><button type=submit id=deletebutton name=deletebuttonpost>DELETE POST</button>";
-                echo "<input type=hidden name=blog3 value=" . $datas[$i]["ID"] . "></form>";
-            }
-        }
-
-        echo "<div id=blog-info>";
-        echo "<div id=inside-view-blog>";
-        echo "<h2>" .  $temptitle . "</h2>";
-        echo "<h2>" . $temptime . "</h2>";
-        echo "</div>";
-        echo "<p>" .  $temptext . "</p>";
-        echo "</div>";
-        echo "<div id=blog-comment>";
-        echo "<h3 id=comments-seperate> Comments: </h3>";
-        if (array_key_exists("logged-in", $_SESSION)) {
-            echo "<form method=POST id=add-comment-box>";
-            echo "<textarea name=comment-box id=comment-box placeholder='Add a comment' required></textarea>";
-            echo "<input type=hidden name=blog-id value=" . $usedId . ">";
-            echo "<input type=hidden name=email value=" . $_SESSION["email"] . ">";
-            echo "<input type=submit name=blog-comment-submit id=blog-comment-submit>";
-            echo "</form>";
-        } else {
-            echo "<p>log in to comment<p>";
-        }
-
-        $commentquery = "SELECT `BLOGCOMMENT`, `dateTimeComment`,`COMMENTID`, `EMAIL` FROM `blogcomments` WHERE ID=" . $usedId . "";
-        $result2 = mysqli_query($conn, $commentquery);
-        $blogcom = array();
-        if (mysqli_num_rows($result2) > 0) {
-            while ($row1 = mysqli_fetch_assoc($result2)) {
-                $blogcom[] = $row1;
-            }
-        }
-        $blogcom = array_reverse($blogcom);
-        for ($j = 0; $j < count($blogcom); $j++) {
-            if (array_key_exists("email", $_SESSION)) {
-                if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
-                    echo "<form method=POST id=deleteform><button type=submit id=deletebutton name=deletebuttoncom>DELETE COMMENT</button>";
-                    echo "<input type=hidden name=comment-id2 value=" . $blogcom[$j]["COMMENTID"] . "></form>";
-                }
-            }
-
-            echo "<div id=comment>";
-            echo "<div id=comment-content>";
-            echo "<p>" . $blogcom[$j]['EMAIL'] . "</p>";
-            echo "<p>" . $blogcom[$j]['dateTimeComment'] . "</p>";
-            echo "</div>";
-            echo "<p>" . $blogcom[$j]['BLOGCOMMENT'] . "</p>";
-            echo "</div>";
-        }
-
-        echo "</div>";
-        if ($i < count($datas) - 1) {
-            echo "<hr>";
-        }
-        echo "</div>";
-    }
-    echo "</div>";
-    echo "</div>";
+    echo "<div id=top-right-button><a href=login.php><p>LOG IN</p></a></div>";
 }
 
-//rewrite page for months 
-function printMonths($month_array, $conn)
-{
-    $_SESSION["refresh-session"] = true;
-    echo "<div id=whole-blog-og class=sans>";
+echo  "<div id=view-blog >";
+echo "<div id=posts-months>";
+echo "<h1>Posts:</h1>";
+echo "</div>";
+for ($i = 0; $i < count($datas); $i += 1) {
+    $temptitle = $datas[$i]['BLOGTITLE'];
+    $temptext = $datas[$i]['BLOGTEXT'];
+    $temptime = $datas[$i]['dateTime'];
+    $usedId = $datas[$i]['ID'];
+    echo  "<div id=view-blog1>";
+    if (array_key_exists("email", $_SESSION)) {
+        if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
+            echo "<form method=POST id=deleteform><button type=submit id=deletebutton name=deletebuttonpost>DELETE POST</button>";
+            echo "<input type=hidden name=blog3 value=" . $datas[$i]["ID"] . "></form>";
+        }
+    }
+
+    echo "<div id=blog-info>";
+    echo "<div id=inside-view-blog>";
+    echo "<h2>" .  $temptitle . "</h2>";
+    echo "<h2>" . $temptime . "</h2>";
+    echo "</div>";
+    echo "<p>" .  $temptext . "</p>";
+    echo "</div>";
+    echo "<div id=blog-comment>";
+    echo "<h3 id=comments-seperate> Comments: </h3>";
     if (array_key_exists("logged-in", $_SESSION)) {
-        echo "<div id=top-right-button2><a href=logout.php><p>LOG OUT</p></a></div>";
-        if (array_key_exists("email", $_SESSION)) {
-            if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
-                echo "<div id=top-right-button><a href=addPost.html><p>ADD POST</p></a></div>";
-            }
-        }
+        echo "<form method=POST id=add-comment-box>";
+        echo "<textarea name=comment-box id=comment-box placeholder='Add a comment' required></textarea>";
+        echo "<input type=hidden name=blog-id value=" . $usedId . ">";
+        echo "<input type=hidden name=email value=" . $_SESSION["email"] . ">";
+        echo "<input type=submit name=blog-comment-submit id=blog-comment-submit>";
+        echo "</form>";
     } else {
-        echo "<div id=top-right-button><a href=login.php><p>LOG IN</p></a></div>";
+        echo "<p>log in to comment<p>";
     }
-    echo  "<div id=view-blog >";
-    echo "<div id=posts-months>";
-    echo "<h1>Posts:</h1>";
-    echo "<div>";
-    echo "<form method=POST>
-        <select placeholder=MM name='change-months'>
-        <option name= value= style=display:none;>MM</option>
-        <option name=January value=Jan>January</option>
-        <option name=February value=Feb>February</option>
-        <option name=March value=Mar>March</option>
-        <option name=April value=Apr>April</option>
-            <option name=May value=May>May</option>
-        <option name=June value=Jun>June</option>
-        <option name=July value=Jul>July</option>
-        <option name=August value=Aug>August</option>
-            <option name=September value=Sep>September</option>
-        <option name=October value=Oct>October</option>
-        <option name=November value=Nov>November</option>
-        <option name=December value=Dec>December</option>
-        </select>";
-    echo " <input type=submit name=change-months-reset onclick='test();'></form>";
-    echo "</div>";
-    echo " </div>";
-    for ($i = 0; $i < count($month_array); $i += 1) {
-        $temptitle = $month_array[$i]['BLOGTITLE'];
-        $temptext = $month_array[$i]['BLOGTEXT'];
-        $temptime = $month_array[$i]['dateTime'];
-        $usedId = $month_array[$i]['ID'];
-        echo  "<div id=view-blog1>";
+
+    $commentquery = "SELECT `BLOGCOMMENT`, `dateTimeComment`,`COMMENTID`, `EMAIL` FROM `blogcomments` WHERE ID=" . $usedId . "";
+    $result2 = mysqli_query($conn, $commentquery);
+    $blogcom = array();
+    if (mysqli_num_rows($result2) > 0) {
+        while ($row1 = mysqli_fetch_assoc($result2)) {
+            $blogcom[] = $row1;
+        }
+    }
+    $blogcom = array_reverse($blogcom);
+    for ($j = 0; $j < count($blogcom); $j++) {
         if (array_key_exists("email", $_SESSION)) {
             if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
-                echo "<form method=POST id=deleteform><button type=submit id=deletebutton name=deletebuttonpost>DELETE POST</button>";
-                echo "<input type=hidden name=blog3 value=" . $month_array[$i]["ID"] . "></form>";
+                echo "<form method=POST id=deleteform><button type=submit id=deletebutton name=deletebuttoncom>DELETE COMMENT</button>";
+                echo "<input type=hidden name=comment-id2 value=" . $blogcom[$j]["COMMENTID"] . "></form>";
             }
-        }
-        echo "<div id=blog-info>";
-        echo "<div id=inside-view-blog>";
-        echo "<h2>" .  $temptitle . "</h2>";
-        echo "<h2>" . $temptime . "</h2>";
-        echo "</div>";
-        echo "<p>" .  $temptext . "</p>";
-        echo "</div>";
-        echo "<div id=blog-comment>";
-        echo "<h3 id=comments-seperate> Comments: </h3>";
-        if (array_key_exists("logged-in", $_SESSION)) {
-            echo "<form method=POST id=add-comment-box>";
-            echo "<textarea name=comment-box id=comment-box placeholder='Add a comment' required></textarea>";
-            echo "<input type=hidden name=blog-id value=" . $usedId . ">";
-            echo "<input type=hidden name=email value=" . $_SESSION["email"] . ">";
-            echo "<input type=submit name=blog-comment-submit id=blog-comment-submit>";
-            echo "</form>";
-        } else {
-            echo "<p>log in to comment<p>";
         }
 
-        $commentquery = "SELECT `BLOGCOMMENT`, `dateTimeComment`,`COMMENTID` FROM `blogcomments` WHERE ID=" . $usedId . "";
-        $result2 = mysqli_query($conn, $commentquery);
-        $blogcom = array();
-        if (mysqli_num_rows($result2) > 0) {
-            while ($row1 = mysqli_fetch_assoc($result2)) {
-                $blogcom[] = $row1;
-            }
-        }
-        $blogcom = array_reverse($blogcom);
-        for ($j = 0; $j < count($blogcom); $j++) {
-            if (array_key_exists("email", $_SESSION)) {
-                if ($_SESSION["email"] == "ec22459@qmul.ac.uk") {
-                    echo "<form method=POST id=deleteform><button type=submit id=deletebutton name=deletebuttoncom>DELETE COMMENT</button>";
-                    echo "<input type=hidden name=comment-id2 value=" . $blogcom[$j]["COMMENTID"] . "></form>";
-                }
-            }
-            echo "<div id=comment>";
-            echo "<div id=comment-content>";
-            echo "<p>" . $blogcom[$j]['EMAIL'] . "</p>";
-            echo "<p>" . $blogcom[$j]['dateTimeComment'] . "</p>";
-            echo "</div>";
-            echo "<p>" . $blogcom[$j]['BLOGCOMMENT'] . "</p>";
-            echo "</div>";
-        }
-
+        echo "<div id=comment>";
+        echo "<div id=comment-content>";
+        echo "<p>" . $blogcom[$j]['EMAIL'] . "</p>";
+        echo "<p>" . $blogcom[$j]['dateTimeComment'] . "</p>";
         echo "</div>";
-        if ($i < count($month_array) - 1) {
-            echo "<hr>";
-        }
+        echo "<p>" . $blogcom[$j]['BLOGCOMMENT'] . "</p>";
         echo "</div>";
     }
+
     echo "</div>";
+    if ($i < count($datas) - 1) {
+        echo "<hr>";
+    }
     echo "</div>";
 }
+echo "</div>";
+echo "</div>";
+
 
 //post comment
 if (isset($_POST['blog-comment-submit'])) {
